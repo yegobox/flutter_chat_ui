@@ -6,6 +6,8 @@ export 'src/models/send_button_visibility_mode.dart';
 export 'src/util.dart' show formatBytes;
 export 'src/widgets/attachment_button.dart';
 export 'src/widgets/chat.dart';
+export 'src/widgets/inherited_l10n.dart';
+export 'src/widgets/inherited_chat_theme.dart';
 export 'src/widgets/chat_list.dart';
 export 'src/widgets/file_message.dart';
 export 'src/widgets/image_message.dart';
