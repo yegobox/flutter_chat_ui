@@ -2,23 +2,21 @@ name: flutter_chat_ui
 description: >
   Actively maintained, community-driven chat UI implementation with an
   optional Firebase BaaS.
-version: 1.5.0
+version: 1.5.6
 homepage: https://flyer.chat
 repository: https://github.com/flyerhq/flutter_chat_ui
 publish_to: "none"
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=2.15.1 <3.0.0"
   flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  diffutil_dart: ^2.0.0+1
+  diffutil_dart: ^3.0.0
   equatable: ^2.0.3
-  flutter_chat_types: ^3.2.0
-  # flutter_chat_types:
-  #   path: "../flutter_chat_types"
-  flutter_link_previewer: ^2.6.0
+  flutter_chat_types: ^3.2.2
+  flutter_link_previewer: ^2.6.2
   intl: ^0.17.0
   meta: ^1.3.0
   photo_view: ^0.13.0

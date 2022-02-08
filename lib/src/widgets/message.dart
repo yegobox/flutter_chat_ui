@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
 import '../models/emoji_enlargement_behavior.dart';
 import '../util.dart';
 import 'file_message.dart';
@@ -23,7 +24,11 @@ class Message extends StatelessWidget {
     this.imageMessageBuilder,
     required this.message,
     required this.messageWidth,
+    this.onAvatarTap,
+    this.onMessageDoubleTap,
     this.onMessageLongPress,
+    this.onMessageStatusLongPress,
+    this.onMessageStatusTap,
     this.onMessageTap,
     this.onPreviewDataFetched,
     required this.roundBorder,
@@ -72,11 +77,24 @@ class Message extends StatelessWidget {
   /// Maximum message width
   final int messageWidth;
 
+  // Called when uses taps on an avatar
+  final void Function(types.User)? onAvatarTap;
+
+  /// Called when user double taps on any message
+  final void Function(BuildContext context, types.Message)? onMessageDoubleTap;
+
   /// Called when user makes a long press on any message
-  final void Function(types.Message)? onMessageLongPress;
+  final void Function(BuildContext context, types.Message)? onMessageLongPress;
+
+  /// Called when user makes a long press on status icon in any message
+  final void Function(BuildContext context, types.Message)?
+      onMessageStatusLongPress;
+
+  /// Called when user taps on status icon in any message
+  final void Function(BuildContext context, types.Message)? onMessageStatusTap;
 
   /// Called when user taps on any message
-  final void Function(types.Message)? onMessageTap;
+  final void Function(BuildContext context, types.Message)? onMessageTap;
 
   /// See [TextMessage.onPreviewDataFetched]
   final void Function(types.TextMessage, types.PreviewData)?
@@ -118,23 +136,26 @@ class Message extends StatelessWidget {
     return showAvatar
         ? Container(
             margin: const EdgeInsets.only(right: 8),
-            child: CircleAvatar(
-              backgroundColor: hasImage
-                  ? InheritedChatTheme.of(context)
-                      .theme
-                      .userAvatarImageBackgroundColor
-                  : color,
-              backgroundImage:
-                  hasImage ? NetworkImage(message.author.imageUrl!) : null,
-              radius: 16,
-              child: !hasImage
-                  ? Text(
-                      initials,
-                      style: InheritedChatTheme.of(context)
-                          .theme
-                          .userAvatarTextStyle,
-                    )
-                  : null,
+            child: GestureDetector(
+              onTap: () => onAvatarTap?.call(message.author),
+              child: CircleAvatar(
+                backgroundColor: hasImage
+                    ? InheritedChatTheme.of(context)
+                        .theme
+                        .userAvatarImageBackgroundColor
+                    : color,
+                backgroundImage:
+                    hasImage ? NetworkImage(message.author.imageUrl!) : null,
+                radius: 16,
+                child: !hasImage
+                    ? Text(
+                        initials,
+                        style: InheritedChatTheme.of(context)
+                            .theme
+                            .userAvatarTextStyle,
+                      )
+                    : null,
+              ),
             ),
           )
         : const SizedBox(width: 40);
@@ -299,8 +320,9 @@ class Message extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onLongPress: () => onMessageLongPress?.call(message),
-                  onTap: () => onMessageTap?.call(message),
+                  onDoubleTap: () => onMessageDoubleTap?.call(context, message),
+                  onLongPress: () => onMessageLongPress?.call(context, message),
+                  onTap: () => onMessageTap?.call(context, message),
                   child: _bubbleBuilder(
                     context,
                     _borderRadius,
@@ -314,7 +336,14 @@ class Message extends StatelessWidget {
           if (_currentUserIsAuthor)
             Padding(
               padding: InheritedChatTheme.of(context).theme.statusIconPadding,
-              child: showStatus ? _statusBuilder(context) : null,
+              child: showStatus
+                  ? GestureDetector(
+                      onLongPress: () =>
+                          onMessageStatusLongPress?.call(context, message),
+                      onTap: () => onMessageStatusTap?.call(context, message),
+                      child: _statusBuilder(context),
+                    )
+                  : null,
             ),
         ],
       ),

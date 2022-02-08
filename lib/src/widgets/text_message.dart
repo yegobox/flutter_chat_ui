@@ -50,6 +50,9 @@ class TextMessage extends StatelessWidget {
     double width,
     BuildContext context,
   ) {
+    final bodyLinkTextStyle = user.id == message.author.id
+        ? InheritedChatTheme.of(context).theme.sentMessageBodyLinkTextStyle
+        : InheritedChatTheme.of(context).theme.receivedMessageBodyLinkTextStyle;
     final bodyTextStyle = user.id == message.author.id
         ? InheritedChatTheme.of(context).theme.sentMessageBodyTextStyle
         : InheritedChatTheme.of(context).theme.receivedMessageBodyTextStyle;
@@ -77,7 +80,7 @@ class TextMessage extends StatelessWidget {
           .theme
           .userNameTextStyle
           .copyWith(color: color),
-      linkStyle: bodyTextStyle,
+      linkStyle: bodyLinkTextStyle ?? bodyTextStyle,
       metadataTextStyle: linkDescriptionTextStyle,
       metadataTitleStyle: linkTitleTextStyle,
       onPreviewDataFetched: _onPreviewDataFetched,

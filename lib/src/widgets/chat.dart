@@ -1,9 +1,11 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/src/widgets/inherited_l10n.dart';
 import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+
 import '../chat_l10n.dart';
 import '../chat_theme.dart';
 import '../conditional/conditional.dart';
@@ -44,10 +46,14 @@ class Chat extends StatefulWidget {
     this.l10n = const ChatL10nEn(),
     required this.messages,
     this.onAttachmentPressed,
+    this.onAvatarTap,
     this.onBackgroundTap,
     this.onEndReached,
     this.onEndReachedThreshold,
+    this.onMessageDoubleTap,
     this.onMessageLongPress,
+    this.onMessageStatusLongPress,
+    this.onMessageStatusTap,
     this.onMessageTap,
     this.onPreviewDataFetched,
     required this.onSendPressed,
@@ -150,6 +156,9 @@ class Chat extends StatefulWidget {
   /// See [Input.onAttachmentPressed]
   final void Function()? onAttachmentPressed;
 
+  /// See [Message.onAvatarTap]
+  final void Function(types.User)? onAvatarTap;
+
   /// Called when user taps on background
   final void Function()? onBackgroundTap;
 
@@ -159,11 +168,21 @@ class Chat extends StatefulWidget {
   /// See [ChatList.onEndReachedThreshold]
   final double? onEndReachedThreshold;
 
+  /// See [Message.onMessageDoubleTap]
+  final void Function(BuildContext context, types.Message)? onMessageDoubleTap;
+
   /// See [Message.onMessageLongPress]
-  final void Function(types.Message)? onMessageLongPress;
+  final void Function(BuildContext context, types.Message)? onMessageLongPress;
+
+  /// See [Message.onMessageStatusLongPress]
+  final void Function(BuildContext context, types.Message)?
+      onMessageStatusLongPress;
+
+  /// See [Message.onMessageStatusTap]
+  final void Function(BuildContext context, types.Message)? onMessageStatusTap;
 
   /// See [Message.onMessageTap]
-  final void Function(types.Message)? onMessageTap;
+  final void Function(BuildContext context, types.Message)? onMessageTap;
 
   /// See [Message.onPreviewDataFetched]
   final void Function(types.TextMessage, types.PreviewData)?
@@ -352,14 +371,18 @@ class _ChatState extends State<Chat> {
         imageMessageBuilder: widget.imageMessageBuilder,
         message: message,
         messageWidth: _messageWidth,
+        onAvatarTap: widget.onAvatarTap,
+        onMessageDoubleTap: widget.onMessageDoubleTap,
         onMessageLongPress: widget.onMessageLongPress,
-        onMessageTap: (tappedMessage) {
+        onMessageStatusLongPress: widget.onMessageStatusLongPress,
+        onMessageStatusTap: widget.onMessageStatusTap,
+        onMessageTap: (context, tappedMessage) {
           if (tappedMessage is types.ImageMessage &&
               widget.disableImageGallery != true) {
             _onImagePressed(tappedMessage);
           }
 
-          widget.onMessageTap?.call(tappedMessage);
+          widget.onMessageTap?.call(context, tappedMessage);
         },
         onPreviewDataFetched: _onPreviewDataFetched,
         roundBorder: map['nextMessageInGroup'] == true,

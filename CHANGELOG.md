@@ -1,3 +1,42 @@
+## 1.5.6
+
+- Add `receivedMessageBodyLinkTextStyle` and `sentMessageBodyLinkTextStyle` to the theme. Thanks @felixgabler for the PR!
+- Add `sendButtonMargin` to the theme. Thanks @damian-kaczmarek for the PR!
+- Add German localization. Thanks @felixgabler for the PR!
+
+## 1.5.5
+
+- Fix dark theme. Thanks @garv-shah for the PR!
+- Fix keyboard that pushes TextField to the top in mobile browsers. Thanks @jiangyubao for reporting!
+- Add `onMessageDoubleTap`. Thanks @leeyisoft for the PR!
+- Update dependencies
+
+## 1.5.4
+
+- **BREAKING CHANGE**: Rename `inputPadding` theme key to `inputMargin` (outer insets) and add `inputPadding` (inner insets, previously were hardcoded) 
+- **BREAKING CHANGE**: Add `BuildContext` as a first parameter for `onMessageLongPress`, `onMessageStatusLongPress`, `onMessageStatusTap`, `onMessageTap`. Thanks @leeyisoft for the PR!
+- Add `inputContainerDecoration` to the theme
+- Remove keyboard shortuts from Android and iOS platforms. Thanks @kyoungsongKim for reporting!
+- Use utf8 codec to parse chinese symbols in link preview. Thanks @minchemo for reporting!
+- Update dependencies. Requires Dart >= 2.15.1.
+
+## 1.5.3
+
+- Remove image blur
+- Update dependencies
+
+## 1.5.2
+
+- Add status icon tap and long press. Thanks @ikurek for the PR!
+- Add Traditional Chinese localization. Thanks @Wei-Hsun for the PR!
+- Add `onAvatarTap`
+- Fix local image preview on web
+- Update dependencies
+
+## 1.5.1
+
+- Increase tests coverage
+
 ## 1.5.0
 
 - Remove `Avenir` as a default font family
@@ -167,7 +206,7 @@ Theme migration guide:
 
 - Fix various URL preview bugs (see https://pub.dev/packages/flutter_link_previewer/changelog)
 - Add an option to disable URL preview. Thanks @Elementarereigniss for the PR!
-- Add portugese localization. Thanks @BerkSpar for the PR!
+- Add Portugese localization. Thanks @BerkSpar for the PR!
 - Update dependencies
 
 ## 1.0.2

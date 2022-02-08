@@ -60,7 +60,9 @@ abstract class ChatTheme {
     required this.errorIcon,
     required this.inputBackgroundColor,
     required this.inputBorderRadius,
+    this.inputContainerDecoration,
     required this.inputPadding,
+    required this.inputMargin,
     required this.inputTextColor,
     this.inputTextCursorColor,
     required this.inputTextDecoration,
@@ -70,6 +72,7 @@ abstract class ChatTheme {
     required this.messageInsetsVertical,
     required this.primaryColor,
     required this.receivedEmojiMessageTextStyle,
+    this.receivedMessageBodyLinkTextStyle,
     required this.receivedMessageBodyTextStyle,
     required this.receivedMessageCaptionTextStyle,
     required this.receivedMessageDocumentIconColor,
@@ -78,8 +81,10 @@ abstract class ChatTheme {
     required this.secondaryColor,
     required this.seenIcon,
     required this.sendButtonIcon,
+    required this.sendButtonMargin,
     required this.sendingIcon,
     required this.sentEmojiMessageTextStyle,
+    this.sentMessageBodyLinkTextStyle,
     required this.sentMessageBodyTextStyle,
     required this.sentMessageCaptionTextStyle,
     required this.sentMessageDocumentIconColor,
@@ -125,8 +130,14 @@ abstract class ChatTheme {
   /// Top border radius of the bottom bar where text field is
   final BorderRadius inputBorderRadius;
 
-  /// Insets of the bottom bar where text field is
+  /// Decoration of the container wrapping the text field
+  final Decoration? inputContainerDecoration;
+
+  /// Inner insets of the bottom bar where text field is
   final EdgeInsetsGeometry inputPadding;
+
+  /// Outer insets of the bottom bar where text field is
+  final EdgeInsetsGeometry inputMargin;
 
   /// Color of the text field's text and attachment/send buttons
   final Color inputTextColor;
@@ -156,6 +167,10 @@ abstract class ChatTheme {
   /// Text style used for displaying emojis on text messages
   final TextStyle receivedEmojiMessageTextStyle;
 
+  /// Text style used for displaying link text on received text messages.
+  /// Defaults to [receivedMessageBodyTextStyle]
+  final TextStyle? receivedMessageBodyLinkTextStyle;
+
   /// Body text style used for displaying text on different types
   /// of received messages
   final TextStyle receivedMessageBodyTextStyle;
@@ -183,11 +198,18 @@ abstract class ChatTheme {
   /// Icon for send button
   final Widget? sendButtonIcon;
 
+  /// Margin of send button
+  final EdgeInsetsGeometry? sendButtonMargin;
+
   /// Icon for message's `sending` status. For the best look use size of 10.
   final Widget? sendingIcon;
 
   /// Text style used for displaying emojis on text messages
   final TextStyle sentEmojiMessageTextStyle;
+
+  /// Text style used for displaying link text on sent text messages.
+  /// Defaults to [sentMessageBodyTextStyle]
+  final TextStyle? sentMessageBodyLinkTextStyle;
 
   /// Body text style used for displaying text on different types
   /// of sent messages
@@ -260,7 +282,9 @@ class DefaultChatTheme extends ChatTheme {
     BorderRadius inputBorderRadius = const BorderRadius.vertical(
       top: Radius.circular(20),
     ),
-    EdgeInsetsGeometry inputPadding = EdgeInsets.zero,
+    Decoration? inputContainerDecoration,
+    EdgeInsetsGeometry inputPadding = const EdgeInsets.fromLTRB(24, 20, 24, 20),
+    EdgeInsetsGeometry inputMargin = EdgeInsets.zero,
     Color inputTextColor = neutral7,
     Color? inputTextCursorColor,
     InputDecoration inputTextDecoration = const InputDecoration(
@@ -278,6 +302,7 @@ class DefaultChatTheme extends ChatTheme {
     double messageInsetsVertical = 16,
     Color primaryColor = primary,
     TextStyle receivedEmojiMessageTextStyle = const TextStyle(fontSize: 40),
+    TextStyle? receivedMessageBodyLinkTextStyle,
     TextStyle receivedMessageBodyTextStyle = const TextStyle(
       color: neutral0,
       fontSize: 16,
@@ -306,8 +331,10 @@ class DefaultChatTheme extends ChatTheme {
     Color secondaryColor = secondary,
     Widget? seenIcon,
     Widget? sendButtonIcon,
+    EdgeInsetsGeometry? sendButtonMargin,
     Widget? sendingIcon,
     TextStyle sentEmojiMessageTextStyle = const TextStyle(fontSize: 40),
+    TextStyle? sentMessageBodyLinkTextStyle,
     TextStyle sentMessageBodyTextStyle = const TextStyle(
       color: neutral7,
       fontSize: 16,
@@ -360,7 +387,9 @@ class DefaultChatTheme extends ChatTheme {
           errorIcon: errorIcon,
           inputBackgroundColor: inputBackgroundColor,
           inputBorderRadius: inputBorderRadius,
+          inputContainerDecoration: inputContainerDecoration,
           inputPadding: inputPadding,
+          inputMargin: inputMargin,
           inputTextColor: inputTextColor,
           inputTextCursorColor: inputTextCursorColor,
           inputTextDecoration: inputTextDecoration,
@@ -370,6 +399,7 @@ class DefaultChatTheme extends ChatTheme {
           messageInsetsVertical: messageInsetsVertical,
           primaryColor: primaryColor,
           receivedEmojiMessageTextStyle: receivedEmojiMessageTextStyle,
+          receivedMessageBodyLinkTextStyle: receivedMessageBodyLinkTextStyle,
           receivedMessageBodyTextStyle: receivedMessageBodyTextStyle,
           receivedMessageCaptionTextStyle: receivedMessageCaptionTextStyle,
           receivedMessageDocumentIconColor: receivedMessageDocumentIconColor,
@@ -379,8 +409,10 @@ class DefaultChatTheme extends ChatTheme {
           secondaryColor: secondaryColor,
           seenIcon: seenIcon,
           sendButtonIcon: sendButtonIcon,
+          sendButtonMargin: sendButtonMargin,
           sendingIcon: sendingIcon,
           sentEmojiMessageTextStyle: sentEmojiMessageTextStyle,
+          sentMessageBodyLinkTextStyle: sentMessageBodyLinkTextStyle,
           sentMessageBodyTextStyle: sentMessageBodyTextStyle,
           sentMessageCaptionTextStyle: sentMessageCaptionTextStyle,
           sentMessageDocumentIconColor: sentMessageDocumentIconColor,
@@ -428,7 +460,9 @@ class DarkChatTheme extends ChatTheme {
     BorderRadius inputBorderRadius = const BorderRadius.vertical(
       top: Radius.circular(20),
     ),
-    EdgeInsetsGeometry inputPadding = EdgeInsets.zero,
+    Decoration? inputContainerDecoration,
+    EdgeInsetsGeometry inputPadding = const EdgeInsets.fromLTRB(24, 20, 24, 20),
+    EdgeInsetsGeometry inputMargin = EdgeInsets.zero,
     Color inputTextColor = neutral7,
     Color? inputTextCursorColor,
     InputDecoration inputTextDecoration = const InputDecoration(
@@ -446,6 +480,7 @@ class DarkChatTheme extends ChatTheme {
     double messageInsetsVertical = 16,
     Color primaryColor = primary,
     TextStyle receivedEmojiMessageTextStyle = const TextStyle(fontSize: 40),
+    TextStyle? receivedMessageBodyLinkTextStyle,
     TextStyle receivedMessageBodyTextStyle = const TextStyle(
       color: neutral7,
       fontSize: 16,
@@ -474,8 +509,10 @@ class DarkChatTheme extends ChatTheme {
     Color secondaryColor = secondaryDark,
     Widget? seenIcon,
     Widget? sendButtonIcon,
+    EdgeInsetsGeometry? sendButtonMargin,
     Widget? sendingIcon,
     TextStyle sentEmojiMessageTextStyle = const TextStyle(fontSize: 40),
+    TextStyle? sentMessageBodyLinkTextStyle,
     TextStyle sentMessageBodyTextStyle = const TextStyle(
       color: neutral7,
       fontSize: 16,
@@ -528,16 +565,19 @@ class DarkChatTheme extends ChatTheme {
           errorIcon: errorIcon,
           inputBackgroundColor: inputBackgroundColor,
           inputBorderRadius: inputBorderRadius,
-          messageInsetsHorizontal: messageInsetsHorizontal,
-          messageInsetsVertical: messageInsetsVertical,
+          inputContainerDecoration: inputContainerDecoration,
           inputPadding: inputPadding,
+          inputMargin: inputMargin,
           inputTextColor: inputTextColor,
           inputTextCursorColor: inputTextCursorColor,
           inputTextDecoration: inputTextDecoration,
           inputTextStyle: inputTextStyle,
           messageBorderRadius: messageBorderRadius,
+          messageInsetsHorizontal: messageInsetsHorizontal,
+          messageInsetsVertical: messageInsetsVertical,
           primaryColor: primaryColor,
           receivedEmojiMessageTextStyle: receivedEmojiMessageTextStyle,
+          receivedMessageBodyLinkTextStyle: receivedMessageBodyLinkTextStyle,
           receivedMessageBodyTextStyle: receivedMessageBodyTextStyle,
           receivedMessageCaptionTextStyle: receivedMessageCaptionTextStyle,
           receivedMessageDocumentIconColor: receivedMessageDocumentIconColor,
@@ -547,8 +587,10 @@ class DarkChatTheme extends ChatTheme {
           secondaryColor: secondaryColor,
           seenIcon: seenIcon,
           sendButtonIcon: sendButtonIcon,
+          sendButtonMargin: sendButtonMargin,
           sendingIcon: sendingIcon,
           sentEmojiMessageTextStyle: sentEmojiMessageTextStyle,
+          sentMessageBodyLinkTextStyle: sentMessageBodyLinkTextStyle,
           sentMessageBodyTextStyle: sentMessageBodyTextStyle,
           sentMessageCaptionTextStyle: sentMessageCaptionTextStyle,
           sentMessageDocumentIconColor: sentMessageDocumentIconColor,
