@@ -1,4 +1,0 @@
-# melos_managed_dependency_overrides: flutter_chat_types
-dependency_overrides:
-  flutter_chat_types:
-    path: ..\\flutter_chat_types
