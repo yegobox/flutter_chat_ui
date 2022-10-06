@@ -120,13 +120,13 @@ Right now, nothing will happen when a user taps on a file message, we will need 
 
 ```dart
 // ...
-import 'package:open_file/open_file.dart';
+import 'package:open_filex/open_filex.dart';
 
 class _MyHomePageState extends State<MyHomePage> {
   // ...
   void _handleMessageTap(BuildContext context, types.Message message) async {
     if (message is types.FileMessage) {
-      await OpenFile.open(message.uri);
+      await OpenFilex.open(message.uri);
     }
   }
 
@@ -193,7 +193,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
+import 'package:open_filex/open_filex.dart';
 
 // For the testing purposes, you should probably use https://pub.dev/packages/uuid
 String randomString() {
@@ -326,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _handleMessageTap(BuildContext context, types.Message message) async {
     if (message is types.FileMessage) {
-      await OpenFile.open(message.uri);
+      await OpenFilex.open(message.uri);
     }
   }
 
